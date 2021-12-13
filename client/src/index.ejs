@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="it" class="min-h-full">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>React</title>
+        <script defer src="https://unpkg.com/smoothscroll-polyfill@latest/dist/smoothscroll.min.js"></script>
+    </head>
+
+    <body class="antialiased min-h-screen bg-white">
+        <% if (htmlWebpackPlugin.options.window) { %>
+        <script type="text/javascript">
+            <%
+                for (key in htmlWebpackPlugin.options.window) { %>
+                    window['<%= key %>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[key]) %>;<%
+                } %>
+        </script>
+        <% } %>
+        <div id="root" class="flex flex-col min-h-screen"></div>
+    </body>
+</html>
