@@ -14,6 +14,13 @@ module.exports = {
         host: 'localhost:3000',
         schemes: ['http'],
         consumes: ['application/json'],
-        produces: ['application/json']
+        produces: ['application/json'],
+        securityDefinitions: {
+            Bearer: {
+                type: "apiKey",
+                name: "Authorization",
+                in: "header"
+            }
+        }
     }
 }
