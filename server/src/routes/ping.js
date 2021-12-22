@@ -1,3 +1,5 @@
+const S = require('fluent-json-schema')
+
 const itemsRoutes = (fastify, options, done) => {
 
     fastify.get('/ping', {
@@ -6,18 +8,12 @@ const itemsRoutes = (fastify, options, done) => {
             tags: ['Test'],
             summary: 'test api',
             response: {
-                200: {
-                    description: 'Test response',
-                    type: 'object',
-                    properties: {
-                        response: { type: 'string' }
-                    }
-                }
-            },
-            security: [{ Bearer: [] }]
+                200: S.object()
+                    .prop('message', S.string())
+            }
         }
     }, async (req, reply) => {
-        reply.send({ response: 'pong' })
+        reply.send({ message: 'pong' })
     })
 
     done()

@@ -1,7 +1,7 @@
 const ping = require('./ping')
-const users = require('./user')
+const user = require('./user')
 
 module.exports = [
     ping,
-    users
+    user
 ]

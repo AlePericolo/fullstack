@@ -1,4 +1,4 @@
-module.exports = {
+exports.swaggerConfig = {
     routePrefix: '/documentation',
     exposeRoute: true,
     swagger: {
@@ -24,3 +24,4 @@ module.exports = {
         }
     }
 }
+

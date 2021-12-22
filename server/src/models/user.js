@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { emailValidator } = require("../utils")
+const { emailValidator } = require("../utils/validation")
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -7,12 +7,12 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         unique: true,
-        required: 'Email is required',
+        required: 'email is required',
         validate: {
             validator: function (value) {
                 return emailValidator(value)
             },
-            message: 'Email is invalid'
+            message: 'email is invalid'
         }
     },
     password: {
