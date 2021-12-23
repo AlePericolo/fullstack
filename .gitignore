@@ -4,4 +4,5 @@ client/package-lock.json
 server/node_modules/
 server/docker/src/
 server/package-lock.json
+utils.txt
 .DS_Store
