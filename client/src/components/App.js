@@ -6,7 +6,7 @@ import axios from 'axios';
 export function App() {
 
     const testApi = () => {
-        axios.get(`http://localhost:3000/`)
+        axios.get(`http://localhost:3000/api/v1/users`)
             .then(res => {
                 console.log(res)
             })
