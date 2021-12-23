@@ -1,41 +1,7 @@
 const S = require('fluent-json-schema')
-const user = require('../controllers/user')
+const user = require('../../../controllers/user')
 
-const authRoutes = (fastify, options, done) => {
-
-    fastify.post('/signup', {
-        schema: {
-            description: 'create new user',
-            tags: ['Auth'],
-            summary: 'create new user',
-            body: S.object()
-                .prop('email', S.string().required())
-                .prop('password', S.string().required()),
-            response: {
-                201: S.object()
-                    .prop('message', S.string())
-            }
-        },
-        handler: user.createUser
-    }),
-
-    fastify.post('/login', {
-        schema: {
-            description: 'login user',
-            tags: ['Auth'],
-            summary: 'login user',
-            body: S.object()
-                .prop('email', S.string().required())
-                .prop('password', S.string().required()),
-            response: {
-                200: S.object()
-                    .prop('token', S.string()),
-                401: S.object()
-                    .prop('message', S.string())
-            }
-        },
-        handler: user.loginUser
-    }),
+const userRoutes = (fastify, options, done) => {
 
     fastify.get('/users', {
         schema: {
@@ -51,6 +17,7 @@ const authRoutes = (fastify, options, done) => {
             },
             security: [{ Bearer: [] }]
         },
+        preValidation: [fastify.authenticate],
         handler: user.getUsers
     })
 
@@ -68,6 +35,7 @@ const authRoutes = (fastify, options, done) => {
             },
             security: [{ Bearer: [] }]
         },
+        preValidation: [fastify.authenticate],
         handler: user.getUser
     })
 
@@ -84,10 +52,11 @@ const authRoutes = (fastify, options, done) => {
             },
             security: [{ Bearer: [] }]
         },
+        preValidation: [fastify.authenticate],
         handler: user.deleteUser
     })
 
     done()
 }
 
-module.exports = authRoutes
+module.exports = userRoutes
