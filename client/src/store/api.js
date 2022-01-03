@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { store } from './store';
 
-const endpoint = {
-  api: API_ENDPOINT
-}
+const { endpoint } = window
 
 const useRawCall = async (method, url, payload = {}, opts = {}) => {
   const token = store.getState()?.app.token || null;

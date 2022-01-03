@@ -1,5 +1,8 @@
-@import 'vendors/vendors';
+@import "vendors/vendors";
 
-h1 {
-    color: red;
+@import "components/error";
+
+html,
+body {
+    scroll-behavior: smooth;
 }

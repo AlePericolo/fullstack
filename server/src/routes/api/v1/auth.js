@@ -7,9 +7,9 @@ const authRoutes = (fastify, options, done) => {
 
     fastify.post('/signup', {
         schema: {
-            description: 'create new user',
+            description: 'signup user',
             tags: ['Auth'],
-            summary: 'create new user',
+            summary: 'signup user',
             body: S.object()
                 .prop('email', S.string().required())
                 .prop('password', S.string().required()),
@@ -53,12 +53,12 @@ const authRoutes = (fastify, options, done) => {
                     email: req.body.email
                 })
                 if (users.length < 1)
-                    reply.status(401).send({ message: 'auth failed' })
+                    reply.status(401).send({ message: 'login failed' })
                 
                 const isPasswordCorrect = await bcrypt.compare(req.body.password, users[0].password)
                 
                 if (!isPasswordCorrect)
-                    reply.status(401).send({ message: 'auth failed' })
+                    reply.status(401).send({ message: 'login failed' })
                 
                 const token = fastify.jwt.sign({
                     email: users[0].email,
