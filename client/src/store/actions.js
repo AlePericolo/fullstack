@@ -12,12 +12,12 @@ export const signup = (credentials) => {
 
 		if (!isNil(response.error)) {
 			dispatch({
-				type: actions.SET_ALERT,
+				type: actions.SET_NOTIFY,
 				payload: {type: 'error', message: response.error.response.data.message}
 			})
 		} else {
 			dispatch({
-				type: actions.SET_ALERT,
+				type: actions.SET_NOTIFY,
 				payload: {type: 'success', message: response.data.message}
 			});
 		}
@@ -32,7 +32,7 @@ export const login = (credentials) => {
 
 		if (!isNil(response.error)) {
 			dispatch({
-				type: actions.SET_ALERT,
+				type: actions.SET_NOTIFY,
 				payload: {type: 'error', message: response.error.response.data.message}
 			})
 		} else {
@@ -63,10 +63,19 @@ export const logout = () => {
 	}
 };
 
-export const clearAlert = () => {
+export const setNotify = (data) => {
 	return async (dispatch) => {
 		dispatch({
-			type: actions.CLEAR_ALERT
+			type: actions.SET_NOTIFY,
+			payload: data
+		});
+	};
+}
+
+export const clearNotify = () => {
+	return async (dispatch) => {
+		dispatch({
+			type: actions.CLEAR_NOTIFY
 		});
 	};
 }

@@ -4,7 +4,7 @@ const initial = {
 	app: {
 		token: null,
 		user: null,
-		alertMessage: null
+		notify: null
 	}
 };
 
@@ -20,19 +20,19 @@ const app = (state = initial.app, action) => {
 		case actions.LOGOUT: {
 			return initial.app;
 		}
-		case actions.SET_ALERT: {
+		case actions.SET_NOTIFY: {
 			return {
 				...state,
-				alertMessage: {
+				notify: {
 					type: action.payload.type,
 					message: action.payload.message
 				}
 			}
 		}
-		case actions.CLEAR_ALERT: {
+		case actions.CLEAR_NOTIFY: {
 			return {
 				...state,
-				alertMessage: initial.app.alertMessage
+				notify: initial.app.notify
 			}
 		}
 		default:
