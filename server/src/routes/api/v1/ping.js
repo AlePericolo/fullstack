@@ -1,4 +1,4 @@
-const S = require('fluent-json-schema')
+const {object, string} = require('fluent-json-schema')
 
 const itemsRoutes = (fastify, options, done) => {
 
@@ -8,8 +8,8 @@ const itemsRoutes = (fastify, options, done) => {
             tags: ['Test'],
             summary: 'test api',
             response: {
-                200: S.object()
-                    .prop('message', S.string())
+                200: object()
+                    .prop('message', string())
             }
         }
     }, async (req, reply) => {

@@ -1,5 +1,5 @@
 const boom = require('boom')
-const User = require('../models/User')
+const User = require('../models/user')
 
 exports.getUsers = async (req, reply) => {
     try {
@@ -26,4 +26,11 @@ exports.deleteUser = async (req, reply) => {
     } catch (err) {
         throw boom.boomify(err)
     }
+}
+
+//functions
+
+exports.getUserById = async (id) => {
+    const user = await User.findById(id)
+    return user
 }

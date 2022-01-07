@@ -1,7 +1,7 @@
-const S = require('fluent-json-schema')
+const {object, string} = require('fluent-json-schema')
 const boom = require('boom')
 const bcrypt = require('bcrypt')
-const User = require('../../../models/User')
+const User = require('../../../models/user')
 
 const authRoutes = (fastify, options, done) => {
 
@@ -10,12 +10,12 @@ const authRoutes = (fastify, options, done) => {
             description: 'signup user',
             tags: ['Auth'],
             summary: 'signup user',
-            body: S.object()
-                .prop('email', S.string().required())
-                .prop('password', S.string().required()),
+            body: object()
+                .prop('email', string().required())
+                .prop('password', string().required()),
             response: {
-                201: S.object()
-                    .prop('message', S.string())
+                201: object()
+                    .prop('message', string())
             }
         },
         handler: async (req, reply) => {
@@ -37,14 +37,14 @@ const authRoutes = (fastify, options, done) => {
             description: 'login user',
             tags: ['Auth'],
             summary: 'login user',
-            body: S.object()
-                .prop('email', S.string().required())
-                .prop('password', S.string().required()),
+            body: object()
+                .prop('email', string().required())
+                .prop('password', string().required()),
             response: {
-                200: S.object()
-                    .prop('token', S.string()),
-                401: S.object()
-                    .prop('message', S.string())
+                200: object()
+                    .prop('token', string()),
+                401: object()
+                    .prop('message', string())
             }
         },
         handler: async (req, reply) => {

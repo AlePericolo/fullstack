@@ -1,4 +1,4 @@
-const S = require('fluent-json-schema')
+const {array, object, string} = require('fluent-json-schema')
 const user = require('../../../controllers/user')
 
 const userRoutes = (fastify, options, done) => {
@@ -9,10 +9,10 @@ const userRoutes = (fastify, options, done) => {
             tags: ['User'],
             summary: 'get users',
             response: {
-                200: S.array().items(
-                    S.object()
-                        .prop('_id', S.string())
-                        .prop('email', S.string())
+                200: array().items(
+                    object()
+                        .prop('_id', string())
+                        .prop('email', string())
                 )
             },
             security: [{ Bearer: [] }]
@@ -26,12 +26,12 @@ const userRoutes = (fastify, options, done) => {
             description: 'get user',
             tags: ['User'],
             summary: 'get user',
-            params: S.object()
-                .prop('_id', S.string().required()),
+            params: object()
+                .prop('_id', string().required()),
             response: {
-                200: S.object()
-                    .prop('_id', S.string())
-                    .prop('email', S.string())
+                200: object()
+                    .prop('_id', string())
+                    .prop('email', string())
             },
             security: [{ Bearer: [] }]
         },
@@ -44,11 +44,11 @@ const userRoutes = (fastify, options, done) => {
             description: 'delete user',
             tags: ['User'],
             summary: 'delete user',
-            params: S.object()
-                .prop('_id', S.string().required()),
+            params: object()
+                .prop('_id', string().required()),
             response: {
-                200: S.object()
-                    .prop('message', S.string())
+                200: object()
+                    .prop('message', string())
             },
             security: [{ Bearer: [] }]
         },
