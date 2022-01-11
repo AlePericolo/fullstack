@@ -40,6 +40,7 @@ export default function Register({setIsLogin}) {
                 field='email'
                 type='text'
                 label='Email'
+                isRequired
                 isSubmitted={isSubmitted}
                 error={errors['email']}
             />
@@ -48,6 +49,7 @@ export default function Register({setIsLogin}) {
                 field='password'
                 type='password'
                 label='Password'
+                isRequired
                 isSubmitted={isSubmitted}
                 error={errors['password']}
             />
@@ -56,6 +58,7 @@ export default function Register({setIsLogin}) {
                 field='confirmPassword'
                 type='password'
                 label='Confirm Password'
+                isRequired
                 isSubmitted={isSubmitted}
                 error={errors['confirmPassword']}
             />

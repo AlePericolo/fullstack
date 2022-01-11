@@ -35,6 +35,7 @@ export default function Login() {
                 field='email'
                 type='text'
                 label='Email'
+                isRequired
                 isSubmitted={isSubmitted}
                 error={errors['email']}
             />
@@ -43,6 +44,7 @@ export default function Login() {
                 field='password'
                 type='password'
                 label='Password'
+                isRequired
                 isSubmitted={isSubmitted}
                 error={errors['password']}
             />

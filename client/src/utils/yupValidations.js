@@ -1,5 +1,10 @@
 import {string, ref} from 'yup'
 
+export const stringValidator = (value) => {
+    return string()
+    .required(`${value ? value : 'this field'} is required`)
+}
+
 export const emailValidator = () => {
     return string()
     .required("email is required")
