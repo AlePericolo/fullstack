@@ -1,15 +1,20 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import Button from '@/templates/components/Button'
 
 export default function Search() {
-
-    const navigate = useNavigate();
 
     return (
         <>
         <h1>Home</h1>
-        <button onClick={()=>navigate('random')}>random</button>
-        <button onClick={()=>navigate('test')}>test</button>
+        <Button btn="warning"
+                size="sm"
+                text="random"
+                href="/random"/>
+        <Button btn="info"
+                size="sm"
+                text="test"
+                href="/test"/>
         </>
     )
 }

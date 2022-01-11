@@ -8,21 +8,21 @@ import { object } from 'yup'
 import { emailValidator, passwordValidator, compareValueValidator } from '@/utils/yupValidations'
 import { RenderInputField } from "./render"
 
-import { signup } from '@/store/actions';
+import Button from '@/templates/components/Button'
 
-const registerSchema = object({
-    email: emailValidator(),
-    password: passwordValidator(),
-    confirmPassword: compareValueValidator('password')
-}).required();
+import { signup } from '@/store/actions';
 
 export default function Register({setIsLogin}) {
 
     const dispatch = useDispatch()
 
-    const { register, formState: { isSubmitted, isSubmitSuccessful, errors, dirtyFields }, handleSubmit, reset } = useForm({
+    const { register, formState: { isSubmitted, isSubmitSuccessful, errors, isDirty }, handleSubmit, reset } = useForm({
         mode: "onChange",
-        resolver: yupResolver(registerSchema)
+        resolver: yupResolver(object({
+            email: emailValidator(),
+            password: passwordValidator(),
+            confirmPassword: compareValueValidator('password')
+        }).required())
     });
 
     useEffect(() => {
@@ -63,16 +63,13 @@ export default function Register({setIsLogin}) {
                 error={errors['confirmPassword']}
             />
             <div className="flex flex-wrap justify-center py-4">
-                <button type="submit"
-                    className={`inline-block py-2 px-4 mx-2 rounded transition ease-in duration-150 ${!(dirtyFields.email && dirtyFields.password && dirtyFields.confirmPassword) ? 'bg-gray-400 text-gray-700' : 'bg-green-400 text-green-700 hover:bg-green-300 hover:text-green-800'}`}
-                    disabled={!(dirtyFields.email && dirtyFields.password && dirtyFields.confirmPassword)}>
-                    Register
-                </button>
-                <button type="button"
-                    className="inline-block py-2 px-4 mx-2 rounded bg-red-400 text-red-700 hover:bg-red-300 hover:text-red-800 transition ease-in duration-150"
-                    onClick={() => reset()}>
-                    Reset
-                </button>
+                <Button type="submit"
+                    btn="success"
+                    disabled={!isDirty}
+                    text="register" />
+                <Button btn="error"
+                    text="reset" 
+                    onClick={() => reset()}/>
             </div>
         </form>
     )

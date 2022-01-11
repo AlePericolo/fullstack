@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 import { FaChevronDown, FaChevronUp, FaBars, FaTimes, FaUser, FaPowerOff } from 'react-icons/fa';
 
+import Button from '@/templates/components/Button'
+
 import { logout } from '@/store/actions';
 
 import { isNil } from 'lodash';
@@ -24,15 +26,10 @@ export default function Nav() {
 
     const handleUser = () => {
         if (isNil(user))
-            return (
-                <Link to="auth"
-                    onClick={() => setMenuOpen(false)}
-                    className="px-3 mx-3 inline-block text-xs uppercase font-bold leading-snug p-1 rounded-full
-                        bg-yellow-400 text-yellow-700 hover:bg-yellow-300 hover:text-yellow-800 
-                        transition ease-in duration-150">
-                    Login
-                </Link>
-            )
+            return <Button btn="warning"
+                    size="sm"
+                    text="login"
+                    href="/auth"/>
 
         return (
             <div className="dropdown relative">

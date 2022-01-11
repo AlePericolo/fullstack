@@ -8,14 +8,9 @@ import { object } from 'yup'
 import { stringValidator } from '@/utils/yupValidations'
 import { RenderInputField, RenderTextarea, RenderSelect } from "./render"
 
-import { getCategories } from '@/store/rest'
-import { string } from 'yup/lib/locale';
+import Button from '@/templates/components/Button'
 
-const newAricleSchema = object({
-    title: stringValidator(),
-    text: stringValidator(),
-    category: stringValidator()
-}).required();
+import { getCategories } from '@/store/rest'
 
 export default function Login() {
 
@@ -23,14 +18,19 @@ export default function Login() {
 
     const { data: categoriesData } = getCategories();
 
-    const { handleSubmit, register, control, reset, formState: { isSubmitted, errors, dirtyFields } } = useForm({
+    const { handleSubmit, register, control, reset, formState: { isSubmitted, errors, isDirty } } = useForm({
         mode: "onChange",
-        resolver: yupResolver(newAricleSchema)
+        resolver: yupResolver(object({
+            title: stringValidator(),
+            text: stringValidator(),
+            category: stringValidator()
+        }).required()),
+        defaultValues: null
     });
 
     const onSubmit = (values) => {
         console.log(values)
-    }
+    }    
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-lg">
@@ -54,7 +54,6 @@ export default function Login() {
             <RenderTextarea
                 register={register}
                 field='text'
-                rows='5'
                 label='Text'
                 isRequired
                 isSubmitted={isSubmitted}
@@ -70,16 +69,13 @@ export default function Login() {
                 error={errors['category']}
             />
             <div className="flex flex-wrap justify-center py-4">
-                <button type="submit"
-                    className={`inline-block py-2 px-4 mx-2 rounded transition ease-in duration-150 ${!(dirtyFields.title && dirtyFields.text) ? 'bg-gray-400 text-gray-700' : 'bg-green-400 text-green-700 hover:bg-green-300 hover:text-green-800'}`}
-                    disabled={!(dirtyFields.title && dirtyFields.text)}>
-                    Save
-                </button>
-                <button type="button"
-                    className="inline-block py-2 px-4 mx-2 rounded bg-red-400 text-red-700 hover:bg-red-300 hover:text-red-800 transition ease-in duration-150"
-                    onClick={() => reset()}>
-                    Reset
-                </button>
+                <Button type="submit"
+                    btn="success"
+                    disabled={!isDirty}
+                    text="save" />
+                <Button btn="error"
+                    text="reset" 
+                    onClick={() => reset()}/>
             </div>
         </form>
     )

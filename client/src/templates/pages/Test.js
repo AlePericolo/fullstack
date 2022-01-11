@@ -2,6 +2,9 @@ import React from 'react';
 
 import { useDispatch } from 'react-redux';
 
+import { FaBell } from 'react-icons/fa';
+import Button from '@/templates/components/Button'
+
 import { setNotify } from '@/store/actions';
 
 export default function Test() {
@@ -11,8 +14,11 @@ export default function Test() {
     return (
         <>
         <h1>Test</h1>
-        <button className='bg-blue-700 text-blue-200 px-4 py-2 m-10 rounded'
-        onClick={() => dispatch(setNotify({type: 'info', message: 'Test'}))}>Test</button>
+        <Button btn="info"
+                size="lg"
+                text="notify"
+                icon={<FaBell />}
+                onClick={() => dispatch(setNotify({type: 'info', message: 'notify message'}))}/>
         </>
     )
 }

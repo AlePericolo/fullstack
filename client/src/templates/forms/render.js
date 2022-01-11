@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Controller } from "react-hook-form";
 
 import ReactSelect from "react-select";
 
-import { isNil, find } from 'lodash'
+import { find } from 'lodash'
 
 export const RenderInputField = ({ register, field, type, label, isRequired, isSubmitted, error }) => {
 
     return (
         <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={field}>
+                <label className={`block uppercase tracking-wide text-xs font-bold mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
+                    htmlFor={field}>
                     {label} {isRequired && '*'}
                 </label>
                 <input {...register(field)}
-                    className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
+                    className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
                     id={field}
                     type={type}
                     placeholder={`Type ${label}`} />
@@ -29,12 +30,13 @@ export const RenderTextarea = ({ register, field, rows, label, isRequired, isSub
     return (
         <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={field}>
+                <label className={`block uppercase tracking-wide text-xs font-bold mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
+                    htmlFor={field}>
                     {label} {isRequired && '*'}
                 </label>
                 <textarea {...register(field)}
                     rows={rows || 3}
-                    className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
+                    className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
                     id={field}
                     placeholder={`Type ${label}`} />
                 <p className="h-4 text-red-500 text-xs italic">{isSubmitted && error?.message}</p>
@@ -92,7 +94,8 @@ export const RenderSelect = ({ control, name, options, label, isRequired, isSubm
     return (
         <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
-                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor={name}>
+                <label className={`block uppercase tracking-wide text-xs font-bold mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
+                    htmlFor={name}>
                     {label} {isRequired && '*'}
                 </label>
                 <Controller
@@ -101,16 +104,16 @@ export const RenderSelect = ({ control, name, options, label, isRequired, isSubm
                     render={({ field }) =>
                         <ReactSelect
                             {...field}
-                            className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow p-0 mb-3 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
+                            className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow p-0 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
                             styles={customStyles}
                             options={options}
                             placeholder={`Select ${label}`}
-                            value={find(options, function (e) { return e._id === field.value }) || null}
+                            value={find(options, function (e) { return e._id === field.value }) || ""}
                             getOptionValue={options => options._id}
                             isSearchable
                             isClearable
                             blurInputOnSelect={false}
-                            onChange={e => field.onChange(e?._id || null)}
+                            onChange={e => field.onChange(e?._id || "")}
                         />
                     }
                 />
