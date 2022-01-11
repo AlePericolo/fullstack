@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object } from 'yup'
-import { stringValidator } from '@/utils/yupValidations'
+import { stringValidator, arrayValidator } from '@/utils/yupValidations'
 import { RenderInputField, RenderTextarea, RenderSelect } from "./render"
 
 import Button from '@/templates/components/Button'
@@ -23,7 +23,8 @@ export default function Login() {
         resolver: yupResolver(object({
             title: stringValidator(),
             text: stringValidator(),
-            category: stringValidator()
+            category: stringValidator(),
+            categories: arrayValidator()
         }).required()),
         defaultValues: null
     });
@@ -67,6 +68,16 @@ export default function Login() {
                 isRequired
                 isSubmitted={isSubmitted}
                 error={errors['category']}
+            />
+            <RenderSelect
+                control={control}
+                name='categories'
+                label='Categories'
+                options={categoriesData || []}
+                isMulti
+                isRequired
+                isSubmitted={isSubmitted}
+                error={errors['categories']}
             />
             <div className="flex flex-wrap justify-center py-4">
                 <Button type="submit"

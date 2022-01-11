@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 
 import ReactSelect from "react-select";
 
-import { find } from 'lodash'
+import { includes } from 'lodash'
 
 export const RenderInputField = ({ register, field, type, label, isRequired, isSubmitted, error }) => {
 
@@ -45,7 +45,7 @@ export const RenderTextarea = ({ register, field, rows, label, isRequired, isSub
     )
 }
 
-export const RenderSelect = ({ control, name, options, label, isRequired, isSubmitted, error }) => {
+export const RenderSelect = ({ control, name, options, isMulti, label, isRequired, isSubmitted, error }) => {
 
     const customStyles = {
         control: (styles, { isFocused }) => ({
@@ -107,13 +107,24 @@ export const RenderSelect = ({ control, name, options, label, isRequired, isSubm
                             className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow p-0 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
                             styles={customStyles}
                             options={options}
+                            isMulti={isMulti || false}
                             placeholder={`Select ${label}`}
-                            value={find(options, function (e) { return e._id === field.value }) || ""}
+                            value={
+                                isMulti ?
+                                    options.filter((o) => includes(field.value, o._id))
+                                :
+                                    options.filter((o) => field.value === o._id)
+                            }
                             getOptionValue={options => options._id}
                             isSearchable
                             isClearable
                             blurInputOnSelect={false}
-                            onChange={e => field.onChange(e?._id || "")}
+                            onChange={option => {
+                                isMulti ?    
+                                    field.onChange((option || []).map((e) => e._id))
+                                :
+                                    field.onChange(option?._id || undefined)
+                            }}
                         />
                     }
                 />
