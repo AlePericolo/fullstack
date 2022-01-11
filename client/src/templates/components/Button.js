@@ -36,7 +36,8 @@ export default function Button({ type, btn, size, style, text, icon, onClick, hr
 
     const hover = getHover()
 
-    const btnClass = `mx-2 inline-block flex items-center 
+    const btnClass = `mx-2 inline-block
+                        ${icon ? 'flex items-center' : ''}
                         no-underline leading-snug rounded-none shadow uppercase font-medium border
                         ${btnSize}
                         bg-${btnType}-300 text-${btnType}-700 border-${btnType}-700

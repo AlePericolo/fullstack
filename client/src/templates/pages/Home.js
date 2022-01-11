@@ -10,6 +10,7 @@ export default function Search() {
         <Button btn="warning"
                 size="sm"
                 text="random"
+                style="italic"
                 href="/random"/>
         <Button btn="info"
                 size="sm"
