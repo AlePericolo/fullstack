@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object } from 'yup'
 import { stringValidator, arrayValidator } from '@/utils/yupValidations'
-import { RenderInputField, RenderTextarea, RenderSelect } from "./render"
+import { RenderInputField, RenderTextarea, RenderSelect, RenderDatePicker } from "./render"
 
 import Button from '@/templates/components/Button'
 
@@ -24,7 +24,7 @@ export default function Login() {
             title: stringValidator(),
             text: stringValidator(),
             category: stringValidator(),
-            categories: arrayValidator()
+            categories: arrayValidator(),
         }).required()),
         defaultValues: null
     });
@@ -78,6 +78,16 @@ export default function Login() {
                 isRequired
                 isSubmitted={isSubmitted}
                 error={errors['categories']}
+            />
+            <RenderDatePicker
+                control={control}
+                name='date'
+                label='Date'
+                isRequired
+                isSubmitted={isSubmitted}
+                minDate={new Date()}
+                isRange={true}
+                //error={errors['categories']}
             />
             <div className="flex flex-wrap justify-center py-4">
                 <Button type="submit"

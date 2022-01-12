@@ -2,6 +2,7 @@ import React from "react";
 import { Controller } from "react-hook-form";
 
 import ReactSelect from "react-select";
+import ReactDatePicker from "react-datepicker";
 
 import { includes } from 'lodash'
 
@@ -106,24 +107,64 @@ export const RenderSelect = ({ control, name, options, isMulti, label, isRequire
                             {...field}
                             className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow p-0 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
                             styles={customStyles}
+                            placeholder={`Select ${label}`}
+                            getOptionValue={options => options._id}
+                            isSearchable
+                            isClearable
+                            blurInputOnSelect={false}
                             options={options}
                             isMulti={isMulti || false}
-                            placeholder={`Select ${label}`}
                             value={
                                 isMulti ?
                                     options.filter((o) => includes(field.value, o._id))
                                 :
                                     options.filter((o) => field.value === o._id)
                             }
-                            getOptionValue={options => options._id}
-                            isSearchable
-                            isClearable
-                            blurInputOnSelect={false}
                             onChange={option => {
                                 isMulti ?    
                                     field.onChange((option || []).map((e) => e._id))
                                 :
                                     field.onChange(option?._id || undefined)
+                            }}
+                        />
+                    }
+                />
+                <p className="h-4 text-red-500 text-xs italic">{isSubmitted && error?.message}</p>
+            </div>
+        </div>
+    )
+}
+
+export const RenderDatePicker = ({ control, name, label, dateFormat, showTime, todayButton, minDate, maxDate, isRequired, isSubmitted, error }) => {
+
+    return (
+        <div className="flex flex-wrap -mx-3 mb-2">
+            <div className="w-full px-3">
+                <label className={`block uppercase tracking-wide text-xs font-bold mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
+                    htmlFor={name}>
+                    {label} {isRequired && '*'}
+                </label>
+                <Controller
+                    name={name}
+                    control={control}
+                    render={({ field }) =>
+                        <ReactDatePicker
+                            {...field}
+                            className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
+                            placeholderText={`Select ${label}`}
+                            dateFormat={dateFormat || "dd/MM/yyyy"}
+                            showTimeSelect={showTime || false}
+                            todayButton={todayButton || "Today"}
+                            //peekNextMonth
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
+                            isClearable
+                            minDate={minDate || null}
+                            maxDate={maxDate || null}
+                            selected={field.value || null}
+                            onChange={value => {
+                                field.onChange(value)
                             }}
                         />
                     }
