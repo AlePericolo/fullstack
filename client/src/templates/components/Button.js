@@ -51,13 +51,13 @@ export default function Button({ type, btn, size, style, text, icon, onClick, hr
                         onClick={onClick}
                         disabled={disabled || false}>
                     {icon}
-                    <span className='mx-2'>{text}</span>
+                    {text && <span className='mx-2'>{text}</span>}
                 </button>
     
     return <Link to={href} 
                 className={btnClass}
                 disabled={disabled || false}>
                 {icon}
-                <span className='mx-2'>{text}</span>
+                {text && <span className='mx-2'>{text}</span>}
             </Link>
 }

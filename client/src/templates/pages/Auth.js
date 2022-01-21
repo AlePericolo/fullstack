@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-import Card from '@/templates/components/Card';
-import Button from '@/templates/components/Button'
 import Login from '@/templates/forms/Login';
 import Register from '@/templates/forms/Register';
+import Button from '@/templates/components/Button'
 
 export default function Auth() {
 
@@ -16,7 +15,7 @@ export default function Auth() {
     }
 
     return (
-        <Card title={isLogin ? 'login' : 'register'}>
+        <>
             {renderForm()}
             <div className="flex flex-wrap justify-center border-t border-gray-400 py-4 text-sm">
                 <span className='inline-block italic py-1'>{isLogin ? 'Don\'t have an account yet?' : 'Back to'}</span>
@@ -25,6 +24,6 @@ export default function Auth() {
                     text={isLogin ? 'register' : 'login'} 
                     onClick={() => setIsLogin(!isLogin)}/>
             </div>
-        </Card>
+        </>
     )
 }

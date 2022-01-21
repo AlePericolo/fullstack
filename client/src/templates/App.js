@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from '@/store/store';
 
-import Notify from '@/templates/components/Notify'
+import Toast from '@/templates/components/Toast'
 import Nav from '@/templates/routes/Nav'
 import Routing from '@/templates/routes/Routing'
 
@@ -14,7 +14,7 @@ export default function App() {
         <Provider store={store}>
             <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
                 <div className="bg-blue-100 min-h-screen">
-                    <Notify />
+                    <Toast />
                     <Nav />
                     <Routing />
                 </div>

@@ -4,7 +4,11 @@ const initial = {
 	app: {
 		token: null,
 		user: null,
-		notify: null
+	},
+	ui: {
+		authModal: false,
+		modal: false,
+		toast: null
 	}
 };
 
@@ -20,19 +24,38 @@ const app = (state = initial.app, action) => {
 		case actions.LOGOUT: {
 			return initial.app;
 		}
-		case actions.SET_NOTIFY: {
+		default:
+			return state;
+	}
+};
+
+const ui = (state = initial.ui, action) => {
+	switch (action.type) {
+		case actions.HANDLE_AUTH_MODAL : {
 			return {
 				...state,
-				notify: {
+				authModal: action.payload
+			}
+		}
+		case actions.HANDLE_MODAL : {
+			return {
+				...state,
+				modal: action.payload
+			}
+		}
+		case actions.SET_TOAST: {
+			return {
+				...state,
+				toast: {
 					type: action.payload.type,
 					message: action.payload.message
 				}
 			}
 		}
-		case actions.CLEAR_NOTIFY: {
+		case actions.CLEAR_TOAST: {
 			return {
 				...state,
-				notify: initial.app.notify
+				toast: initial.ui.toast
 			}
 		}
 		default:
@@ -40,4 +63,6 @@ const app = (state = initial.app, action) => {
 	}
 };
 
-export default { app };
+
+
+export default { app, ui };

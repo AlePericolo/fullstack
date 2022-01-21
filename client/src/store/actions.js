@@ -12,12 +12,12 @@ export const signup = (credentials) => {
 
 		if (!isNil(response.error)) {
 			dispatch({
-				type: actions.SET_NOTIFY,
+				type: actions.SET_TOAST,
 				payload: {type: 'error', message: response.error.response.data.message}
 			})
 		} else {
 			dispatch({
-				type: actions.SET_NOTIFY,
+				type: actions.SET_TOAST,
 				payload: {type: 'success', message: response.data.message}
 			});
 		}
@@ -32,7 +32,7 @@ export const login = (credentials) => {
 
 		if (!isNil(response.error)) {
 			dispatch({
-				type: actions.SET_NOTIFY,
+				type: actions.SET_TOAST,
 				payload: {type: 'error', message: response.error.response.data.message}
 			})
 		} else {
@@ -40,6 +40,14 @@ export const login = (credentials) => {
 			const { token } = response.data;
 			const decoded = jwtDecode(token);
 
+			dispatch({
+				type: actions.HANDLE_AUTH_MODAL,
+				payload: false
+			})
+			dispatch({
+				type: actions.SET_TOAST,
+				payload: {type: 'success', message: 'User Logged'}
+			});
 			dispatch({
 				type: actions.LOGIN,
 				payload: { 
@@ -63,19 +71,37 @@ export const logout = () => {
 	}
 };
 
-export const setNotify = (data) => {
+export const handleAuthModal = (data) => {
 	return async (dispatch) => {
 		dispatch({
-			type: actions.SET_NOTIFY,
+			type: actions.HANDLE_AUTH_MODAL,
 			payload: data
 		});
 	};
 }
 
-export const clearNotify = () => {
+export const handleModal = (data) => {
 	return async (dispatch) => {
 		dispatch({
-			type: actions.CLEAR_NOTIFY
+			type: actions.HANDLE_MODAL,
+			payload: data
+		});
+	};
+}
+
+export const setToast = (data) => {
+	return async (dispatch) => {
+		dispatch({
+			type: actions.SET_TOAST,
+			payload: data
+		});
+	};
+}
+
+export const clearToast = () => {
+	return async (dispatch) => {
+		dispatch({
+			type: actions.CLEAR_TOAST
 		});
 	};
 }

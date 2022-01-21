@@ -34,7 +34,7 @@ export default function Register({setIsLogin}) {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-lg">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <RenderInputField
                 register={register}
                 field='email'
@@ -65,9 +65,11 @@ export default function Register({setIsLogin}) {
             <div className="flex flex-wrap justify-center py-4">
                 <Button type="submit"
                     btn="success"
+                    size="sm"
                     disabled={!isDirty}
                     text="register" />
                 <Button btn="error"
+                    size="sm"
                     text="reset" 
                     onClick={() => reset()}/>
             </div>

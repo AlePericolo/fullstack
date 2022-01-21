@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom';
 
 import { FaChevronDown, FaChevronUp, FaBars, FaTimes, FaUser, FaPowerOff } from 'react-icons/fa';
 
-import Button from '@/templates/components/Button'
+import Auth from '@/templates/pages/Auth'
 
-import { logout } from '@/store/actions';
+import Button from '@/templates/components/Button'
+import Modal from '@/templates/components/Modal'
+
+import { logout, handleAuthModal } from '@/store/actions';
 
 import { isNil } from 'lodash';
 
@@ -15,7 +18,8 @@ export default function Nav() {
 
     const dispatch = useDispatch()
 
-    const user = useSelector((state) => state.app.user);
+    const {user} = useSelector((state) => state.app);
+    const {authModal} = useSelector((state) => state.ui)
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -29,7 +33,7 @@ export default function Nav() {
             return <Button btn="warning"
                     size="sm"
                     text="login"
-                    href="/auth"/>
+                    onClick={() => dispatch(handleAuthModal(true))}/>
 
         return (
             <div className="dropdown relative">
@@ -55,7 +59,16 @@ export default function Nav() {
         )
     }
 
+    const handleAuth = () => {
+        if(!authModal) return null
+
+        return <Modal title="auth">
+                    <Auth />
+                </Modal>
+    }
+
     return (
+        <>
         <nav className="relative w-full flex flex-wrap items-center justify-between bg-indigo-700 shadow">
             <div className="p-3 w-full flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
                 <Link to="/"
@@ -87,5 +100,7 @@ export default function Nav() {
                 </ul>
             </div>
         </nav>
+        {handleAuth()}
+        </>
     )
 }
