@@ -49,7 +49,7 @@ export default function Toast() {
 					transition: 'all .5s linear',
 					transform: `translateX(${animate.translateX})`,
 					opacity: animate.opacity,
-					zIndex: isNil(toast) ? -10 : 100
+					zIndex: isNil(toast) ? -10 : 50
 				}}
 			>
 				<div className="flex items-center justify-between px-5 py-2">

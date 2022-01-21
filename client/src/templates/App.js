@@ -13,11 +13,9 @@ export default function App() {
     return (
         <Provider store={store}>
             <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
-                <div className="bg-blue-100 min-h-screen">
-                    <Toast />
-                    <Nav />
-                    <Routing />
-                </div>
+                <Toast />
+                <Nav />
+                <Routing />
             </PersistGate>
         </Provider>
     )

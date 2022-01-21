@@ -45,7 +45,7 @@ export default function Nav() {
                 <ul className={`dropdown-menu absolute z-10 shadow w-screen bg-white text-xs uppercase leading-snug lg:w-full mt-3 lg:mt-5 ${dropdownOpen ? 'block' : 'hidden'}`}>
                     <li className='p-3 hover:bg-gray-200' onClick={() => { setMenuOpen(!menuOpen); setDropdownOpen(!dropdownOpen) }} role="button">
                         <Link to="profile"
-                            className="flex items-center justify-evenly text-indigo-700">
+                            className="flex items-center justify-evenly text-gray-700">
                             <FaUser /> profile
                         </Link>
                     </li>
@@ -69,7 +69,7 @@ export default function Nav() {
 
     return (
         <>
-        <nav className="relative w-full flex flex-wrap items-center justify-between bg-indigo-700 shadow">
+        <nav className="relative w-full flex flex-wrap items-center justify-between bg-gray-700 shadow">
             <div className="p-3 w-full flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
                 <Link to="/"
                     className="flex items-center text-xs uppercase font-bold leading-snug text-white">
@@ -84,7 +84,7 @@ export default function Nav() {
                     {menuOpen ? <FaTimes /> : <FaBars />}
                 </button>
             </div>
-            <div className={`py-3 lg:flex flex-grow items-center bg-indigo-500 lg:bg-indigo-700 ${menuOpen ? "flex" : "hidden"}`}>
+            <div className={`py-3 lg:flex flex-grow items-center bg-gray-500 lg:bg-gray-700 ${menuOpen ? "flex" : "hidden"}`}>
                 <ul className="space-x-0 space-y-3 flex flex-col lg:flex-row lg:ml-auto lg:items-center lg:space-x-3 lg:space-y-0">
                     {menu.map((e, index) =>
                         <li key={index} className="nav-item" onClick={() => setMenuOpen(false)}>

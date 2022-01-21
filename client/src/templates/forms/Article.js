@@ -34,7 +34,7 @@ export default function Login() {
     }    
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-lg">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <RenderInputField
                 register={register}
                 field='title'
@@ -69,7 +69,7 @@ export default function Login() {
                 isSubmitted={isSubmitted}
                 error={errors['category']}
             />
-            <RenderSelect
+            {/* <RenderSelect
                 control={control}
                 name='categories'
                 label='Categories'
@@ -88,7 +88,7 @@ export default function Login() {
                 minDate={new Date()}
                 isRange={true}
                 //error={errors['categories']}
-            />
+            /> */}
             <div className="flex flex-wrap justify-center py-4">
                 <Button type="submit"
                     btn="success"
