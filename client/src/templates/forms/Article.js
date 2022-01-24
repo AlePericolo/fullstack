@@ -12,25 +12,24 @@ import Button from '@/templates/components/Button'
 
 import { getCategories } from '@/store/rest'
 
-export default function Login() {
+export default function Article() {
 
     const dispatch = useDispatch()
 
     const { data: categoriesData } = getCategories();
 
-    const { handleSubmit, register, control, reset, formState: { isSubmitted, errors, isDirty } } = useForm({
+    const {  register, formState: { isSubmitted, errors, isDirty }, handleSubmit, control, reset,  } = useForm({
         mode: "onChange",
         resolver: yupResolver(object({
             title: stringValidator(),
             text: stringValidator(),
-            category: stringValidator(),
             categories: arrayValidator(),
         }).required()),
         defaultValues: null
     });
 
     const onSubmit = (values) => {
-        console.log(values)
+        console.log("values => ", values)
     }    
 
     return (
@@ -62,15 +61,6 @@ export default function Login() {
             />
             <RenderSelect
                 control={control}
-                name='category'
-                label='Category'
-                options={categoriesData || []}
-                isRequired
-                isSubmitted={isSubmitted}
-                error={errors['category']}
-            />
-            {/* <RenderSelect
-                control={control}
                 name='categories'
                 label='Categories'
                 options={categoriesData || []}
@@ -79,16 +69,6 @@ export default function Login() {
                 isSubmitted={isSubmitted}
                 error={errors['categories']}
             />
-            <RenderDatePicker
-                control={control}
-                name='date'
-                label='Date'
-                isRequired
-                isSubmitted={isSubmitted}
-                minDate={new Date()}
-                isRange={true}
-                //error={errors['categories']}
-            /> */}
             <div className="flex flex-wrap justify-center py-4">
                 <Button type="submit"
                     btn="success"

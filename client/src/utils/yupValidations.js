@@ -1,8 +1,38 @@
-import { string, array, ref } from 'yup'
+import { number, string, bool, array, date, ref } from 'yup'
 
-export const stringValidator = (value) => {
+export const numberValidator = (field) => {
+    return number()
+        .required(`${field ? field : 'this field'} is required`)
+        .typeError(`${field ? field : 'this field'} must be a number`)
+}
+
+export const numberPositiveValidator = (field) => {
+    return number()
+        .positive()
+        .required(`${field ? field : 'this field'} is required and must be positive`)
+        .typeError(`${field ? field : 'this field'} must be a number and must be positive`)
+}
+
+export const doubleValidator = (field) => {
+    return number()
+        .required(`${field ? field : 'this field'} is required`)
+        .typeError(`${field ? field : 'this field'} must be a decimal number`)
+}
+
+export const stringValidator = (field) => {
     return string()
-        .required(`${value ? value : 'this field'} is required`)
+        .required(`${field ? field : 'this field'} is required`)
+}
+
+export const checkboxValidator = (field) => {
+    return bool()
+        .oneOf([true], `${field ? field : 'this field'} is required`)
+}
+
+export const radioValidator = (field) => {
+    return string()
+        .required(`${field ? field : 'this field'} is required`)
+        .typeError(`${field ? field : 'this field'} must be selected`)
 }
 
 export const emailValidator = () => {
@@ -26,6 +56,12 @@ export const arrayValidator = (message) => {
     return array()
         .test({
             message: `${message ? message : 'this field is required'}`,
-            test: (arr) => arr.length !== 0
+            test: (value) => value && value.length !== 0
         })
+}
+
+export const dateValidator = (field) => {
+    return date()
+        .required(`${field ? field : 'this field'} is required`)
+        .typeError(`${field ? field : 'this field'} must be a date`)
 }
