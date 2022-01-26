@@ -46,7 +46,7 @@ export default function Article() {
             <RenderInputField
                 register={register}
                 field='subtitle'
-                type='subtitle'
+                type='text'
                 label='Subtitle'
                 isSubmitted={isSubmitted}
                 error={errors['subtitle']}

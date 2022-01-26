@@ -59,7 +59,7 @@ export default function FormTest() {
             <RenderInputField
                 register={register}
                 field='string'
-                type='string'
+                type='text'
                 label='String'
                 isRequired
                 isSubmitted={isSubmitted}
