@@ -1,0 +1,89 @@
+input[type='text'], 
+input[type='string'], 
+input[type='email'], 
+input[type='url'], 
+input[type='password'], 
+input[type='number'], 
+input[type='date'], 
+input[type='datetime-local'], 
+input[type='month'], 
+input[type='search'], 
+input[type='tel'], 
+input[type='time'], 
+input[type='week'], 
+input[multiple], 
+textarea, 
+select {
+    @apply appearance-none block w-full mb-1 border rounded-none shadow-none leading-tight bg-gray-200 text-gray-700 p-2
+}
+
+input[type='checkbox'], 
+input[type='radio'] {
+    @apply appearance-none w-4 h-4 text-gray-500 border border-gray-700
+}
+
+input[type='text']:focus, 
+input[type='string']:focus, 
+input[type='email']:focus, 
+input[type='url']:focus, 
+input[type='password']:focus, 
+input[type='number']:focus, 
+input[type='date']:focus, 
+input[type='datetime-local']:focus, 
+input[type='month']:focus, 
+input[type='search']:focus, 
+input[type='tel']:focus, 
+input[type='time']:focus, 
+input[type='week']:focus, 
+input[multiple]:focus, 
+textarea:focus, 
+select:focus {
+    box-shadow: none !important;
+    @apply outline-none bg-white ring-0 border-gray-500
+}
+
+select:after {
+    @apply rounded-none
+}
+
+input[type='checkbox']:focus, 
+input[type='radio']:focus {
+    @apply focus:outline-none focus:border-gray-700 focus:ring-0
+}
+
+.form-label {
+    @apply block text-xs font-bold uppercase tracking-wide
+}
+
+.form-error {
+    @apply h-4 text-red-500 text-xs italic
+}
+
+.react-datepicker {
+    @apply	rounded-none;	
+    .react-datepicker__header {
+        @apply	rounded-none	
+    }
+}
+.react-datepicker-popper[data-placement^=top] .react-datepicker__triangle::before,
+.react-datepicker-popper[data-placement^=top] .react-datepicker__triangle::after {
+    left: -12px
+}
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected,
+.react-datepicker__day--keyboard-selected:hover, .react-datepicker__month-text--keyboard-selected:hover, .react-datepicker__quarter-text--keyboard-selected:hover, .react-datepicker__year-text--keyboard-selected:hover,
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range, .react-datepicker__month-text--selected, .react-datepicker__month-text--in-selecting-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--selected, .react-datepicker__quarter-text--in-selecting-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--selected, .react-datepicker__year-text--in-selecting-range, .react-datepicker__year-text--in-range,
+.react-datepicker__day--selected:hover, .react-datepicker__day--in-selecting-range:hover, .react-datepicker__day--in-range:hover, .react-datepicker__month-text--selected:hover, .react-datepicker__month-text--in-selecting-range:hover, .react-datepicker__month-text--in-range:hover, .react-datepicker__quarter-text--selected:hover, .react-datepicker__quarter-text--in-selecting-range:hover, .react-datepicker__quarter-text--in-range:hover, .react-datepicker__year-text--selected:hover, .react-datepicker__year-text--in-selecting-range:hover, .react-datepicker__year-text--in-range:hover {
+    @apply bg-black	rounded-none	
+}
+.react-datepicker__year-dropdown-container--select, .react-datepicker__month-dropdown-container--select, .react-datepicker__month-year-dropdown-container--select, .react-datepicker__year-dropdown-container--scroll, .react-datepicker__month-dropdown-container--scroll, .react-datepicker__month-year-dropdown-container--scroll {
+    width: 45%;
+}
+.react-datepicker__close-icon {
+    top: -3px;
+}
+.react-datepicker__close-icon:after {
+    @apply bg-transparent text-gray-300 font-bold text-xl w-6 h-6
+}
+.react-datepicker__close-icon:hover:after {
+    @apply text-gray-400
+}

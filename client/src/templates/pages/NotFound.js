@@ -7,7 +7,7 @@ export default function NotFound() {
 
     return (
         <div className='flex justify-center items-center'>
-            <div className="error">
+            <div className="notfound">
                 <div className="face">
                     <div className="band">
                         <div className="red"></div>

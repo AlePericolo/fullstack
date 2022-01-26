@@ -100,12 +100,12 @@ export const RenderSelect = ({ control, name, options, isMulti, label, isRequire
             backgroundColor: isFocused ? '#fff' : 'transparent',
             border: 0,
             borderRadius: 0,
-            boxShadow: isFocused ? "none" : "none"
+            boxShadow: isFocused ? 'none' : 'none'
         }),
         menu: (styles) => ({
             ...styles,
             borderRadius: 0,
-            marginTop: "5px"
+            marginTop: '5px'
         }),
         menuList: (styles) => ({
             ...styles,
@@ -116,22 +116,22 @@ export const RenderSelect = ({ control, name, options, isMulti, label, isRequire
             backgroundColor: isDisabled
                 ? undefined
                 : isSelected
-                    ? "rgba(200, 200, 200)"
+                    ? '#6b7280'
                     : isFocused
-                        ? "rgba(229, 231, 235)"
+                        ? '#e5e7eb'
                         : undefined,
             color: isDisabled
                 ? '#ccc'
                 : isSelected
-                    ? 'white'
-                    : 'black',
+                    ? '#fff'
+                    : '#000',
             cursor: isDisabled ? 'not-allowed' : 'default',
             ':active': {
                 ...styles[':active'],
                 backgroundColor: !isDisabled
                     ? isSelected
-                        ? 'white'
-                        : 'rgba(229, 231, 235)'
+                        ? '#fff'
+                        : '#e5e7eb'
                     : undefined,
             },
         })

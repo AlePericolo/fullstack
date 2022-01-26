@@ -44,7 +44,7 @@ export default function Toast() {
 	return (
 		<ToastContainer>
 			<div
-				className={`toast fixed w-64 top-20 right-5 mx-auto rounded-md shadow-lg ${renderType()}`}
+				className={`toast fixed w-64 top-20 right-5 mx-auto shadow-lg ${renderType()}`}
 				style={{
 					transition: 'all .5s linear',
 					transform: `translateX(${animate.translateX})`,

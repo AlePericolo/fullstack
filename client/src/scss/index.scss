@@ -1,8 +1,7 @@
 @import "vendors/vendors";
 
-@import "components/error";
-
-@import "./override";
+@import "components/form";
+@import "components/notfound";
 
 html,
 body {
