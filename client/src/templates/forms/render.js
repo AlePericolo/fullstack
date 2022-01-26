@@ -11,17 +11,17 @@ export const RenderInputField = ({ register, field, type, step, label, isRequire
     return (
         <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
-                <label className={`block uppercase tracking-wide text-xs font-bold mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
+                <label className={`form-label mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
                     htmlFor={field}>
                     {label} {isRequired && '*'}
                 </label>
                 <input {...register(field)}
-                    className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
+                    className={`${isSubmitted && error ? 'border-red-500' : 'border-gray-500'}`}
                     id={field}
                     type={type}
                     step={step || null}
                     placeholder={`Type ${label}`} />
-                <p className="h-4 text-red-500 text-xs italic">{isSubmitted && error?.message}</p>
+                <p className="form-error">{isSubmitted && error?.message}</p>
             </div>
         </div>
     )
@@ -34,15 +34,14 @@ export const RenderCheckbox = ({ register, field, label, isRequired, isSubmitted
             <div className="w-full px-3">
                 <label className="flex items-center">
                     <input {...register(field)}
-                        className="form-checkbox text-gray-700 h-4 w-4"
                         id={field}
                         type="checkbox" />
-                    <span className={`block uppercase tracking-wide text-xs font-bold ml-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
+                    <span className={`form-label ml-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
                         htmlFor={field}>
                         {label} {isRequired && '*'}
                     </span>
                 </label>
-                <p className="h-4 text-red-500 text-xs italic">{isSubmitted && error?.message}</p>
+                <p className="form-error">{isSubmitted && error?.message}</p>
             </div>
         </div>
     )
@@ -53,22 +52,21 @@ export const RenderRadioButton = ({ register, field, options, label, isRequired,
     return (
         <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
-                <label className={`block uppercase tracking-wide text-xs font-bold mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}>
+                <label className={`form-label mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}>
                     {label} {isRequired && '*'}
                 </label>
                 {(options || []).map((o, index) => (
                     <div className="flex mb-2" key={index}>
                         <input {...register(field)}
-                            className="h-4 w-4"
                             id={o._id}
                             value={o._id}
                             type="radio" />
-                        <label htmlFor={o._id} className="block uppercase tracking-wide text-xs font-bold ml-2 text-gray-700">
+                        <label htmlFor={o._id} className="form-label ml-2 text-gray-700">
                             {o.label}
                         </label>
                     </div>
                 ))}
-                <p className="h-4 text-red-500 text-xs italic">{isSubmitted && error?.message}</p>
+                <p className="form-error">{isSubmitted && error?.message}</p>
             </div>
         </div>
     )
@@ -79,16 +77,16 @@ export const RenderTextarea = ({ register, field, rows, label, isRequired, isSub
     return (
         <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
-                <label className={`block uppercase tracking-wide text-xs font-bold mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
+                <label className={`form-label mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
                     htmlFor={field}>
                     {label} {isRequired && '*'}
                 </label>
                 <textarea {...register(field)}
                     rows={rows || 3}
-                    className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
+                    className={`${isSubmitted && error ? 'border-red-500' : 'border-gray-500'}`}
                     id={field}
                     placeholder={`Type ${label}`} />
-                <p className="h-4 text-red-500 text-xs italic">{isSubmitted && error?.message}</p>
+                <p className="form-error">{isSubmitted && error?.message}</p>
             </div>
         </div>
     )
@@ -99,11 +97,10 @@ export const RenderSelect = ({ control, name, options, isMulti, label, isRequire
     const customStyles = {
         control: (styles, { isFocused }) => ({
             ...styles,
-            backgroundColor: isFocused ? 'white' : 'transparent',
-            minHeight: 45,
-            boxShadow: "none",
-            border: "none",
-            borderRadius: 0
+            backgroundColor: isFocused ? '#fff' : 'transparent',
+            border: 0,
+            borderRadius: 0,
+            boxShadow: isFocused ? "none" : "none"
         }),
         menu: (styles) => ({
             ...styles,
@@ -114,7 +111,7 @@ export const RenderSelect = ({ control, name, options, isMulti, label, isRequire
             ...styles,
             padding: 0
         }),
-        option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+        option: (styles, { isDisabled, isFocused, isSelected }) => ({
             ...styles,
             backgroundColor: isDisabled
                 ? undefined
@@ -143,7 +140,7 @@ export const RenderSelect = ({ control, name, options, isMulti, label, isRequire
     return (
         <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
-                <label className={`block uppercase tracking-wide text-xs font-bold mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
+                <label className={`form-label mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
                     htmlFor={name}>
                     {label} {isRequired && '*'}
                 </label>
@@ -152,7 +149,7 @@ export const RenderSelect = ({ control, name, options, isMulti, label, isRequire
                     control={control}
                     render={({ field }) =>
                         <ReactSelect
-                            className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow p-0 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
+                            className={`p-0 mb-1 shadow leading-tight bg-gray-200 text-gray-700 focus:bg-white border ${isSubmitted && error ? 'border-red-500' : 'border-gray-500'}`}
                             styles={customStyles}
                             placeholder={`Select ${label}`}
                             getOptionValue={options => options._id}
@@ -176,7 +173,7 @@ export const RenderSelect = ({ control, name, options, isMulti, label, isRequire
                         />
                     }
                 />
-                <p className="h-4 text-red-500 text-xs italic">{isSubmitted && error?.message}</p>
+                <p className="form-error">{isSubmitted && error?.message}</p>
             </div>
         </div>
     )
@@ -187,7 +184,7 @@ export const RenderDatePicker = ({ control, name, label, dateFormat, showTime, t
     return (
         <div className="flex flex-wrap -mx-3 mb-2">
             <div className="w-full px-3">
-                <label className={`block uppercase tracking-wide text-xs font-bold mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
+                <label className={`form-label mb-2 ${isSubmitted && error ? 'text-red-700' : 'text-gray-700'}`}
                     htmlFor={name}>
                     {label} {isRequired && '*'}
                 </label>
@@ -196,7 +193,7 @@ export const RenderDatePicker = ({ control, name, label, dateFormat, showTime, t
                     control={control}
                     render={({ field }) =>
                         <ReactDatePicker
-                            className={`appearance-none block w-full bg-gray-200 text-gray-700 border rounded-none shadow py-3 px-4 mb-1 leading-tight focus:outline-none focus:bg-white ${isSubmitted && error ? 'border-red-500' : ''}`}
+                            className={`block w-full mb-1 py-3 px-4 border rounded-none shadow leading-tight bg-gray-200 text-gray-700 focus:outline-none focus:outline-none focus:bg-white focus:ring-0 focus:border-gray-500 ${isSubmitted && error ? 'border-red-500' : 'border-gray-500'}`}
                             placeholderText={`Select ${label}`}
                             dateFormat={dateFormat || "dd/MM/yyyy"}
                             showTimeSelect={showTime || false}
@@ -215,7 +212,7 @@ export const RenderDatePicker = ({ control, name, label, dateFormat, showTime, t
                         />
                     }
                 />
-                <p className="h-4 text-red-500 text-xs italic">{isSubmitted && error?.message}</p>
+                <p className="form-error">{isSubmitted && error?.message}</p>
             </div>
         </div>
     )
