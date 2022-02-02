@@ -10,13 +10,25 @@ import { RenderInputField, RenderTextarea, RenderSelect, RenderDatePicker } from
 
 import Button from '@/templates/components/Button'
 
-import { getCategories } from '@/store/rest'
+import { getCategories, saveArticleHandler } from '@/store/rest'
 
 export default function Article() {
 
     const dispatch = useDispatch()
 
     const { data: categoriesData } = getCategories();
+    const [saveArticle, {data: saveArticleData}] = saveArticleHandler()
+    console.log("saveArticleData => ", saveArticleData)
+
+    const preset = {
+        "title": "title",
+        "subtitle": "subtitle",
+        "text": "lorem ipsum",
+        "categories": [
+            "61d80fec7f5060aee39f845b",
+            "61d80ff67f5060aee39f845d"
+        ]
+    }
 
     const {  register, formState: { isSubmitted, errors, isDirty }, handleSubmit, control, reset,  } = useForm({
         mode: "onChange",
@@ -25,11 +37,12 @@ export default function Article() {
             text: stringValidator(),
             categories: arrayValidator(),
         }).required()),
-        defaultValues: null
+        defaultValues: preset
     });
 
     const onSubmit = (values) => {
         console.log("values => ", values)
+        saveArticle(values)
     }    
 
     return (

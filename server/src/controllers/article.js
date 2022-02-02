@@ -4,6 +4,9 @@ const Article = require('../models/article')
 const { getCategoriesLabelByIds } = require('../controllers/category')
 const { getUserById } = require('../controllers/user')
 
+const { tokenDecode } = require("../utils/decode")
+
+
 exports.getArticles = async (req, reply) => {
     try {
         const articlesData = await Article.find({})
@@ -41,7 +44,11 @@ exports.deleteArticle = async (req, reply) => {
 
 exports.createArticle = async (req, reply) => {
     try {
-        await Article.create(req.body)
+        const { userId } = tokenDecode(req.headers.authorization)
+        await Article.create({
+            ...req.body,
+            user: userId
+        })
         reply.status(201).send({ message: 'article created' })
     } catch (err) {
         throw boom.boomify(err)

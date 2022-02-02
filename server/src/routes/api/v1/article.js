@@ -40,8 +40,7 @@ const articleRoutes = (fastify, options, done) => {
                 .prop('text', string().required())
                 .prop('categories', array().items(
                     string())
-                )
-                .prop('user', string().required()),
+                ),
             response: {
                 201: object()
                     .prop('message', string())
