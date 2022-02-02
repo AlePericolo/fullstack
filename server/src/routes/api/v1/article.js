@@ -22,7 +22,7 @@ const articleRoutes = (fastify, options, done) => {
                             .prop('_id', string())
                             .prop('email', string())
                         )
-                        .prop('created_at', string().format('time'))
+                        .prop('created_at', string())
                 )
             },
         },
