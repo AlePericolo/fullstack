@@ -1,34 +1,86 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import Card from '@/templates/components/Card';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { getArticles } from '@/store/rest'
+import { searchArticlesHandler } from '@/store/rest'
+import { getRandomImage } from '@/utils/utils';
 
 import { isNil } from 'lodash';
 
 export default function Articles() {
 
-    const { data: articlesData } = getArticles()
+    const [page, setPage] = useState(1) 
+    const [items, setItems] = useState([])
+    const [searchArticles, { data: articlesData }] = searchArticlesHandler()
 
-    console.log(articlesData)
 
-    const renderArticles = () => {
-        if (isNil(articlesData)) return null
+    useEffect(() => {
+        if(isNil(articlesData)) return
 
+        console.log("qui", articlesData)
+        setItems([...items, ...articlesData.items])
+
+    }, [articlesData])
+
+    useEffect(() => {
+        console.log("PAGE => ", page)
+        searchArticles({page: page})
+    }, [page])
+
+    const fetchData = () => {
+        console.log("FETCH")
+        setPage(page + 1)
+    }
+
+    console.log("items => ", items)
+    console.log("scroll", window.pageYOffset)
+
+    const renderCategories = (categories) => {
         return (
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-5'>
-                {(articlesData || []).map(a => {
-                    return (<div key={a._id}
-                        className='w-100 bg-gray-200 shadow'>
-                        <p>{a.title}</p>
-                        <p>{a.subtitle}</p>
-                        <p>{a.text}</p>
-                    </div>
-                    )
-                })}
-            </div>
+            (categories || []).map((c, index) => {
+                return (
+                    <span key={index} className='badge'>
+                        {c}
+                    </span>
+                )
+            })
         )
     }
 
-    return renderArticles()
+    return (
+        <InfiniteScroll
+            next={fetchData}
+            dataLength={items.length}
+            hasMore={isNil(articlesData) ? true : items.length < articlesData.totalItems}
+            loader={
+                <p style={{ textAlign: 'center' }}>
+                    <b>Loading..</b>
+                </p>
+            }
+            endMessage={
+                <p style={{ textAlign: 'center' }}>
+                    <b>Yay! You have seen it all</b>
+                </p>
+            }
+        >
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-5'>
+            {items.map(a => {
+                        return (
+                            <div key={a._id} className='card-article'>
+                                <div className='image-container'>
+                                    <img src={getRandomImage()} />
+                                </div>
+                                <div className='title-container '>
+                                    <p className='title'>{a.title}</p>
+                                    <p className='subtitle'>{a.subtitle}</p>
+                                </div>
+                                <div className='categories-container'>
+                                    {renderCategories(a.categories)}
+                                </div>
+                            </div>
+                        )
+                    })}
+                    </div>
+        </InfiniteScroll>
+        )
 }

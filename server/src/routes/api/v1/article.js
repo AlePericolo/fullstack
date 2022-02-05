@@ -1,4 +1,4 @@
-const {array, object, string} = require('fluent-json-schema')
+const {array, object, string, integer} = require('fluent-json-schema')
 const article = require('../../../controllers/article')
 
 const articleRoutes = (fastify, options, done) => {
@@ -27,6 +27,43 @@ const articleRoutes = (fastify, options, done) => {
             },
         },
         handler: article.getArticles
+    })
+
+    fastify.post('/articles/search', {
+        schema: {
+            description: 'search articles',
+            tags: ['Article'],
+            summary: 'search articles',
+            body: {
+                type: 'object',
+                properties: {
+                    page: { type: 'integer' }
+                }
+            },
+            response: {
+                200: 
+                    object()
+                        .prop('items', array().items(
+                            object()
+                                .prop('_id', string())
+                                .prop('title', string())
+                                .prop('subtitle', string())
+                                .prop('text', string())
+                                .prop('categories', array().items(
+                                    string())
+                                )
+                                .prop('user', object()
+                                    .prop('_id', string())
+                                    .prop('email', string())
+                                )
+                                .prop('created_at', string())
+                                )
+                        )
+                    .prop('totalItems', integer())
+                    .prop('itemsForPage', integer())
+            },
+        },
+        handler: article.searchArticles
     })
 
     fastify.post('/article', {

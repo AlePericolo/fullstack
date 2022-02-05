@@ -4,8 +4,8 @@ export const getCategories = () => {
 	return useApi('GET', '/api/v1/categories');
 }
 
-export const getArticles = () => {
-	return useApi('GET', '/api/v1/articles')
+export const searchArticlesHandler = () => {
+	return useLazyApi('POST', '/api/v1/articles/search')
 }
 
 export const saveArticleHandler = (payload) => {

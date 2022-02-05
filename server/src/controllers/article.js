@@ -24,6 +24,33 @@ exports.getArticles = async (req, reply) => {
     }
 }
 
+exports.searchArticles = async (req, reply) => {
+    try {
+        const { page } = req.body;
+
+        const itemsForPage = 12;
+        const totalItems = await Article.count()
+
+        const data = await Article.find().limit(itemsForPage).skip(page === 1 ? 0 : (page * itemsForPage) - itemsForPage)
+        const items = []
+        for (const d of data) {
+            items.push({
+                ...d.toObject(),
+                categories: await getCategoriesLabelByIds(d.categories),
+                user: await getUserById(d.user)
+            })
+        }
+        reply.status(200).send({
+            'itemsForPage': itemsForPage,
+            'totalItems': totalItems,
+            'items': items
+        })
+
+    } catch (err) {
+        throw boom.boomify(err)
+    }
+}
+
 exports.getArticle = async (req, reply) => {
     try {
         const article = await Article.findById(req.params._id)

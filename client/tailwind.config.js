@@ -22,7 +22,9 @@ module.exports = {
       'md-down': { raw: '(max-width: 768px)' },
       'sm-down': { raw: '(max-width: 640px)' },
     },
-    extend: {},
+    extend: {
+      scale: ['active', 'group-hover'],
+    },
   },
   plugins: [require('@tailwindcss/forms'),]
 }
