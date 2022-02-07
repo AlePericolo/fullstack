@@ -3,37 +3,11 @@ const article = require('../../../controllers/article')
 
 const articleRoutes = (fastify, options, done) => {
 
-    fastify.get('/articles', {
+    fastify.post('/articles', {
         schema: {
             description: 'get articles',
             tags: ['Article'],
             summary: 'get articles',
-            response: {
-                200: array().items(
-                    object()
-                        .prop('_id', string())
-                        .prop('title', string())
-                        .prop('subtitle', string())
-                        .prop('text', string())
-                        .prop('categories', array().items(
-                            string())
-                        )
-                        .prop('user', object()
-                            .prop('_id', string())
-                            .prop('email', string())
-                        )
-                        .prop('created_at', string())
-                )
-            },
-        },
-        handler: article.getArticles
-    })
-
-    fastify.post('/articles/search', {
-        schema: {
-            description: 'search articles',
-            tags: ['Article'],
-            summary: 'search articles',
             body: {
                 type: 'object',
                 properties: {
@@ -50,10 +24,13 @@ const articleRoutes = (fastify, options, done) => {
                                 .prop('subtitle', string())
                                 .prop('text', string())
                                 .prop('categories', array().items(
-                                    string())
+                                    object()
+                                        //.prop('_id', string())
+                                        .prop('label', string())
+                                    )
                                 )
                                 .prop('user', object()
-                                    .prop('_id', string())
+                                    //.prop('_id', string())
                                     .prop('email', string())
                                 )
                                 .prop('created_at', string())
@@ -63,7 +40,7 @@ const articleRoutes = (fastify, options, done) => {
                     .prop('itemsForPage', integer())
             },
         },
-        handler: article.searchArticles
+        handler: article.getArticles
     })
 
     fastify.post('/article', {

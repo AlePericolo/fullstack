@@ -1,5 +1,6 @@
 const boom = require('boom')
 const Article = require('../models/article')
+const Category = require('../models/category')
 
 const { getCategoriesLabelByIds } = require('../controllers/category')
 const { getUserById } = require('../controllers/user')
@@ -9,37 +10,28 @@ const { tokenDecode } = require("../utils/decode")
 
 exports.getArticles = async (req, reply) => {
     try {
-        const articlesData = await Article.find({})
-        const articles = []
-        for (const data of articlesData) {
-            articles.push({
-                ...data.toObject(),
-                categories: await getCategoriesLabelByIds(data.categories),
-                user: await getUserById(data.user)
-            })
-        }
-        reply.status(200).send(articles)
-    } catch (err) {
-        throw boom.boomify(err)
-    }
-}
-
-exports.searchArticles = async (req, reply) => {
-    try {
         const { page } = req.body;
 
-        const itemsForPage = 12;
+        const itemsForPage = 6;
         const totalItems = await Article.count()
 
-        const data = await Article.find().limit(itemsForPage).skip(page === 1 ? 0 : (page * itemsForPage) - itemsForPage)
-        const items = []
-        for (const d of data) {
-            items.push({
-                ...d.toObject(),
-                categories: await getCategoriesLabelByIds(d.categories),
-                user: await getUserById(d.user)
-            })
-        }
+        let where = {}
+        let sort = [['created_at', -1]]
+
+        const items = await Article
+                            .find(where)
+                            .sort(sort)
+                            .limit(itemsForPage)
+                            .skip(page === 1 ? 0 : (page * itemsForPage) - itemsForPage)
+                            .populate({
+                                path: "categories"
+                            })
+                            .populate({
+                                path: 'user',
+                                email: {$ne: 'lorem@ipsum.com'}
+                            })
+
+
         reply.status(200).send({
             'itemsForPage': itemsForPage,
             'totalItems': totalItems,

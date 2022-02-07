@@ -10,6 +10,8 @@ const dbHandler = () => {
         }
     ).then(() => { console.log('DB connected') })
 
+    mongoose.set('debug', true);
+
     mongoose.connection.on("error", err => {
         console.log(`DB connection error: ${err.message}`);
     })

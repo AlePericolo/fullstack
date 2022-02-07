@@ -6,6 +6,7 @@ import { searchArticlesHandler } from '@/store/rest'
 import { getRandomImage } from '@/utils/utils';
 
 import { isNil } from 'lodash';
+import { DateTime } from "luxon";
 
 export default function Articles() {
 
@@ -17,23 +18,13 @@ export default function Articles() {
     useEffect(() => {
         if(isNil(articlesData)) return
 
-        console.log("qui", articlesData)
         setItems([...items, ...articlesData.items])
 
     }, [articlesData])
 
     useEffect(() => {
-        console.log("PAGE => ", page)
         searchArticles({page: page})
     }, [page])
-
-    const fetchData = () => {
-        console.log("FETCH")
-        setPage(page + 1)
-    }
-
-    console.log("items => ", items)
-    console.log("scroll", window.pageYOffset)
 
     const renderCategories = (categories) => {
         return (
@@ -49,7 +40,7 @@ export default function Articles() {
 
     return (
         <InfiniteScroll
-            next={fetchData}
+            next={() => {setPage(page + 1)}}
             dataLength={items.length}
             hasMore={isNil(articlesData) ? true : items.length < articlesData.totalItems}
             loader={
@@ -76,6 +67,10 @@ export default function Articles() {
                                 </div>
                                 <div className='categories-container'>
                                     {renderCategories(a.categories)}
+                                </div>
+                                <div className='info-container'>
+                                    <span className='date'>{DateTime.fromISO(a.created_at).toFormat('dd LLLL y')}</span>
+                                    <span className='author'>{a.user.email}</span>
                                 </div>
                             </div>
                         )

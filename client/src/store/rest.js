@@ -5,7 +5,7 @@ export const getCategories = () => {
 }
 
 export const searchArticlesHandler = () => {
-	return useLazyApi('POST', '/api/v1/articles/search')
+	return useLazyApi('POST', '/api/v1/articles')
 }
 
 export const saveArticleHandler = (payload) => {
