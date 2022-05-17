@@ -26,3 +26,8 @@ $ npm run start
 dir: fullstack/client
 $ export API_ENDPOINT=http://localhost:3000 && npm run serve
 ```
+
+
+## Swagger Dev
+
+http://localhost:3000/documentation/static/index.html

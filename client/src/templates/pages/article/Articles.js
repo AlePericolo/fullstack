@@ -31,7 +31,7 @@ export default function Articles() {
             (categories || []).map((c, index) => {
                 return (
                     <span key={index} className='badge'>
-                        {c}
+                        {c.label}
                     </span>
                 )
             })
